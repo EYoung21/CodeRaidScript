@@ -1,7 +1,5 @@
 # CodeRaidScript
 
-# CodeRaidScript
-
 ## Description
 
 CodeRaidScript is a Python script designed to automate typing codes from a CSV file into a specified application or game. The script allows for starting and stopping the typing process using hotkeys and provides an easy way to manage and automate repetitive typing tasks.
@@ -45,6 +43,7 @@ CodeRaidScript is a Python script designed to automate typing codes from a CSV f
     ```
 
 3. Control the typing process:
+    - When prompted, enter the position of the code you want to start on (1-based index).
     - Press `F9` to start or stop typing the codes.
     - Press `End` to immediately stop typing the codes.
     - Press `Esc` to exit the program.
@@ -65,3 +64,7 @@ Feel free to submit issues or pull requests if you have suggestions or improveme
 ## Contact
 
 For any inquiries, please contact [Eli Young](mailto:eliyoung4now@swarthmore.edu).
+
+## Future Updates
+
+- Implement automated recorded paths from bags to base for code raiding.
