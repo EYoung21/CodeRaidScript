@@ -48,17 +48,17 @@ def load_position():
 
 def type_codes(start_position):
     global typing_active, stop_typing
-    position = start_position
+    position = start_position - 1  # Adjust for 1-based indexing
     stop_typing = False
     while typing_active and not stop_typing:
         for i in range(position, len(codes)):
             if not typing_active or stop_typing:
-                save_position(i)
+                save_position(i + 1)  # Adjust for 1-based indexing
                 print("Stopping...")
                 return
 
-            # Print the current code
-            print(f"Typing code: {codes[i]}")
+            # Print the current code with position
+            print(f"Typing code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
 
             # Hold down 'e' key
             keyboard.press('e')
@@ -96,7 +96,7 @@ def stop_typing_function():
     stop_typing = True
 
 # Prompt user for starting position
-start_position = int(input("Enter the starting position (0-based index): "))
+start_position = int(input("Enter the starting position (1-based index): "))
 
 # Bind the start typing function to 'F9' with the starting position
 keyboard.add_hotkey('f9', toggle_typing, args=(start_position,))
