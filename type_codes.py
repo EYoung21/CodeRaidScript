@@ -62,7 +62,7 @@ def type_codes(start_position):
             # Hold down 'e' key
             keyboard.press('e')
             # Add delay before moving the mouse and clicking
-            time.sleep(0.245)
+            time.sleep(0.241)
             # Move mouse to the position and click
             screen_width, screen_height = pyautogui.size()
             target_x = screen_width * 3 / 4
@@ -80,7 +80,7 @@ def type_codes(start_position):
             # Print the current code with position
             print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
 
-            time.sleep(0.86)
+            time.sleep(0.88)
 
         position = 0  # Reset position to start from the beginning if we reach the end
 
