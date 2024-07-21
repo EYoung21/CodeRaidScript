@@ -57,9 +57,6 @@ def type_codes(start_position):
                 print("Stopping...")
                 return
 
-            # Print the current code with position
-            print(f"Typing code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
-
             # Hold down 'e' key
             keyboard.press('e')
             # Add delay before moving the mouse and clicking
@@ -77,6 +74,13 @@ def type_codes(start_position):
             for digit in codes[i]:
                 if digit in digit_positions:
                     pyautogui.click(digit_positions[digit])
+
+            time.sleep(0.85)
+
+            # Print the current code with position
+            print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
+
+            
 
         position = 0  # Reset position to start from the beginning if we reach the end
 
