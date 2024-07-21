@@ -47,6 +47,13 @@ CodeRaidScript is a Python script designed to automate typing codes from a CSV f
     - Press `F9` to start or stop typing the codes.
     - Press `End` to immediately stop typing the codes.
     - Press `Esc` to exit the program.
+    - Change these two lines
+      target_x = screen_width * 3 / 4
+      target_y = screen_height * 3 / 4
+    - To this for compound gates:
+      target_x = screen_width * 1 / 4
+      target_y = screen_height * 1 / 4
+      
 
 ## Files
 
