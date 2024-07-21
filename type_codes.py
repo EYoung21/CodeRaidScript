@@ -17,6 +17,7 @@ position_file = 'position.txt'
 typing_active = False
 typing_thread = None
 stop_typing = False
+current_position = 0
 
 # Mapping keypad digit positions (assuming the center of the screen)
 screen_width, screen_height = pyautogui.size()
@@ -47,13 +48,14 @@ def load_position():
     return 0
 
 def type_codes(start_position):
-    global typing_active, stop_typing
+    global typing_active, stop_typing, current_position
     position = start_position - 1  # Adjust for 1-based indexing
     stop_typing = False
     while typing_active and not stop_typing:
         for i in range(position, len(codes)):
             if not typing_active or stop_typing:
-                save_position(i + 1)  # Adjust for 1-based indexing
+                current_position = i + 1  # Adjust for 1-based indexing
+                save_position(current_position)
                 print("Stopping...")
                 return
 
@@ -80,27 +82,29 @@ def type_codes(start_position):
             # Print the current code with position
             print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
 
-            
-
         position = 0  # Reset position to start from the beginning if we reach the end
 
 def toggle_typing(start_position):
-    global typing_active, typing_thread, stop_typing
+    global typing_active, typing_thread, stop_typing, current_position
     typing_active = not typing_active
     stop_typing = False
     if typing_active:
+        current_position = start_position if current_position == 0 else current_position
         print("Starting typing...")
-        typing_thread = Thread(target=type_codes, args=(start_position,))
+        typing_thread = Thread(target=type_codes, args=(current_position,))
         typing_thread.start()
     else:
         print("Typing paused.")
+        save_position(current_position)
 
 def stop_typing_function():
     global stop_typing
     stop_typing = True
 
 # Prompt user for starting position
-start_position = int(input("Enter the starting position (1-based index): "))
+start_position = load_position()
+if start_position == 0:
+    start_position = int(input("Enter the starting position (1-based index): "))
 
 # Bind the start typing function to 'F9' with the starting position
 keyboard.add_hotkey('f9', toggle_typing, args=(start_position,))
