@@ -106,14 +106,14 @@ last_position = load_position()
 start_position_input = input(f"Enter the starting position (1-based index, or press Enter to resume from {last_position}): ")
 start_position = int(start_position_input) if start_position_input.strip() else last_position
 
-# Bind the start typing function to 'F9' with the starting position
-keyboard.add_hotkey('f9', toggle_typing, args=(start_position,))
+# Bind the start typing function to 'F2' with the starting position
+keyboard.add_hotkey('f2', toggle_typing, args=(start_position,))
 
 # Bind the "End" key to stop typing
 keyboard.add_hotkey('end', stop_typing_function)
 
 # Keep the script running
-print("Press 'F9' to start/stop typing codes.")
+print("Press 'F2' to start/stop typing codes.")
 print("Press 'End' to stop typing codes.")
 print("Press 'Esc' to exit the program.")
 keyboard.wait('esc')
