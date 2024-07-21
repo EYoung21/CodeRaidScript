@@ -3,10 +3,8 @@ import time
 import pyautogui
 import csv
 import os
+import random
 from threading import Thread
-
-
-
 
 def read_codes_from_csv(file_path):
     with open(file_path, newline='') as csvfile:
@@ -14,25 +12,16 @@ def read_codes_from_csv(file_path):
         for row in reader:
             return row  # Assuming all codes are in a single row
 
-
-
-
 codes = read_codes_from_csv('codes.csv')
 position_file = 'position.txt'
 typing_active = False
 typing_thread = None
 stop_typing = False
 
-
-
-
 # Mapping keypad digit positions (assuming the center of the screen)
 screen_width, screen_height = pyautogui.size()
 center_x = screen_width // 2
 center_y = screen_height // 2
-
-
-
 
 digit_positions = {
     '1': (center_x - 50, center_y + 50),
@@ -47,24 +36,15 @@ digit_positions = {
     '0': (center_x - 50, center_y + 125),
 }
 
-
-
-
 def save_position(position):
     with open(position_file, 'w') as f:
         f.write(str(position))
-
-
-
 
 def load_position():
     if os.path.exists(position_file):
         with open(position_file, 'r') as f:
             return int(f.read())
     return 0
-
-
-
 
 def type_codes(start_position):
     global typing_active, stop_typing
@@ -77,10 +57,8 @@ def type_codes(start_position):
                 print("Stopping...")
                 return
 
-
             # Print the current code
             print(f"Typing code: {codes[i]}")
-
 
             # Hold down 'e' key
             keyboard.press('e')
@@ -95,49 +73,36 @@ def type_codes(start_position):
             # Release 'e' key
             keyboard.release('e')
 
-
             # Click each digit in the code
             for digit in codes[i]:
                 if digit in digit_positions:
                     pyautogui.click(digit_positions[digit])
 
-
         position = 0  # Reset position to start from the beginning if we reach the end
 
-
-
-
-def toggle_typing():
+def toggle_typing(start_position):
     global typing_active, typing_thread, stop_typing
     typing_active = not typing_active
     stop_typing = False
     if typing_active:
         print("Starting typing...")
-        start_position = load_position()
         typing_thread = Thread(target=type_codes, args=(start_position,))
         typing_thread.start()
     else:
         print("Typing paused.")
 
-
-
-
 def stop_typing_function():
     global stop_typing
     stop_typing = True
 
+# Prompt user for starting position
+start_position = int(input("Enter the starting position (0-based index): "))
 
-
-
-# Bind the toggle function to 'F9'
-keyboard.add_hotkey('f9', toggle_typing)
-
+# Bind the start typing function to 'F9' with the starting position
+keyboard.add_hotkey('f9', toggle_typing, args=(start_position,))
 
 # Bind the "End" key to stop typing
 keyboard.add_hotkey('end', stop_typing_function)
-
-
-
 
 # Keep the script running
 print("Press 'F9' to start/stop typing codes.")
