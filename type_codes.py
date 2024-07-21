@@ -75,7 +75,7 @@ def type_codes(start_position):
                 if digit in digit_positions:
                     pyautogui.click(digit_positions[digit])
 
-            time.sleep(0.85)
+            time.sleep(1)
 
             # Print the current code with position
             print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
