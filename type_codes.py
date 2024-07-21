@@ -62,7 +62,7 @@ def type_codes(start_position):
             # Hold down 'e' key
             keyboard.press('e')
             # Add delay before moving the mouse and clicking
-            time.sleep(0.25)
+            time.sleep(0.245)
             # Move mouse to the position and click
             screen_width, screen_height = pyautogui.size()
             target_x = screen_width * 3 / 4
@@ -77,10 +77,10 @@ def type_codes(start_position):
                 if digit in digit_positions:
                     pyautogui.click(digit_positions[digit])
 
-            time.sleep(1)
-
             # Print the current code with position
             print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
+
+            time.sleep(0.86)
 
         position = 0  # Reset position to start from the beginning if we reach the end
 
@@ -102,9 +102,9 @@ def stop_typing_function():
     stop_typing = True
 
 # Prompt user for starting position
-start_position = load_position()
-if start_position == 0:
-    start_position = int(input("Enter the starting position (1-based index): "))
+last_position = load_position()
+start_position_input = input(f"Enter the starting position (1-based index, or press Enter to resume from {last_position}): ")
+start_position = int(start_position_input) if start_position_input.strip() else last_position
 
 # Bind the start typing function to 'F9' with the starting position
 keyboard.add_hotkey('f9', toggle_typing, args=(start_position,))
