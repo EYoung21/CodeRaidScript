@@ -44,7 +44,7 @@ CodeRaidScript is a Python script designed to automate typing codes from a CSV f
 
 3. Control the typing process:
     - When prompted, enter the position of the code you want to start on (1-based index).
-    - Press `F9` to start or stop typing the codes.
+    - Press `F2` to start or stop typing the codes.
     - Press `End` to immediately stop typing the codes.
     - Press `Esc` to exit the program.
     - Change these two lines
