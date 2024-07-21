@@ -80,7 +80,7 @@ def type_codes(start_position):
             # Print the current code with position
             print(f"Typed code at position {i + 1}: {codes[i]}")  # Adjust for 1-based indexing
 
-            time.sleep(0.88)
+            time.sleep(0.871)
 
         position = 0  # Reset position to start from the beginning if we reach the end
 
