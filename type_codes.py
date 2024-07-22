@@ -63,7 +63,7 @@ def type_codes(start_position):
             # Hold down 'e' key
             keyboard.press('e')
             # Add delay before moving the mouse and clicking
-            time.sleep(0.243)
+            time.sleep(0.244)
             # Move mouse to the position and click
             pyautogui.moveTo(target_x, target_y)
             pyautogui.click()
