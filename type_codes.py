@@ -3,7 +3,6 @@ import time
 import pyautogui
 import csv
 import os
-import random
 from threading import Thread
 
 def read_codes_from_csv(file_path):
@@ -18,6 +17,8 @@ typing_active = False
 typing_thread = None
 stop_typing = False
 current_position = 0
+target_x = pyautogui.size().width * 3 / 4
+target_y = pyautogui.size().height * 3 / 4
 
 # Mapping keypad digit positions (assuming the center of the screen)
 screen_width, screen_height = pyautogui.size()
@@ -64,9 +65,6 @@ def type_codes(start_position):
             # Add delay before moving the mouse and clicking
             time.sleep(0.241)
             # Move mouse to the position and click
-            screen_width, screen_height = pyautogui.size()
-            target_x = screen_width * 3 / 4
-            target_y = screen_height * 3 / 4
             pyautogui.moveTo(target_x, target_y)
             pyautogui.click()
             # Release 'e' key
@@ -84,8 +82,11 @@ def type_codes(start_position):
 
         position = 0  # Reset position to start from the beginning if we reach the end
 
-def toggle_typing(start_position):
-    global typing_active, typing_thread, stop_typing, current_position
+def toggle_typing(start_position, new_target=None):
+    global typing_active, typing_thread, stop_typing, current_position, target_x, target_y
+    if new_target:
+        target_x, target_y = new_target
+
     typing_active = not typing_active
     stop_typing = False
     if typing_active:
@@ -106,15 +107,19 @@ last_position = load_position()
 start_position_input = input(f"Enter the starting position (1-based index, or press Enter to resume from {last_position}): ")
 start_position = int(start_position_input) if start_position_input.strip() else last_position
 
-# Bind the start typing function to 'F2' with the starting position
-keyboard.add_hotkey('f2', toggle_typing, args=(start_position,))
+# Bind the start typing function to 'F2' with the starting position and default target position
+keyboard.add_hotkey('f2', toggle_typing, args=(start_position, (screen_width * 3 / 4, screen_height * 3 / 4)))
 
 # Bind the "End" key to stop typing
 keyboard.add_hotkey('end', stop_typing_function)
 
+# Bind the start typing function to 'F3' with the starting position and new target position
+keyboard.add_hotkey('f3', toggle_typing, args=(start_position, (screen_width * 1 / 4, screen_height * 1 / 4)))
+
 # Keep the script running
 print("Press 'F2' to start/stop typing codes.")
 print("Press 'End' to stop typing codes.")
+print("Press 'F3' to start/stop typing codes with new target position.")
 print("Press 'Esc' to exit the program.")
 keyboard.wait('esc')
 print("Program terminated.")
