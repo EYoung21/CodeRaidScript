@@ -62,7 +62,7 @@ CodeRaidScript is a Python script designed to automate typing codes from a CSV f
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
